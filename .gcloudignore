@@ -1,8 +1,0 @@
-__pycache__/
-landmarks/
-.venv/
-sibi/
-*.task
-*.zip
-.git
-.gitignore

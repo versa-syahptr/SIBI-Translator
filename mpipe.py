@@ -1,7 +1,5 @@
 import cv2
 import mediapipe as mp
-
-import predictor
 import utils
 
 mp_drawing = mp.solutions.drawing_utils
@@ -52,11 +50,12 @@ def generate_stream():
                 break
     cap.release()
 
-def main():
-    for landmark in generate_stream():
-        df = utils.landmark2df(landmark)
-        letter = predictor.predict(df)
-        print(letter)
+
 
 if __name__ == "__main__":
-    main()
+    import predictor
+    for landmark in generate_stream():
+        df = utils.landmark2df(landmark)
+        letter, conf = predictor.predict_with_conf(df)
+        if conf > 0.5:
+            print(letter, f"{int(conf*100)}%")
